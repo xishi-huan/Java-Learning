@@ -19,7 +19,7 @@
     ```
     测试：`if(Tom.equals(boss)) ...`  
     总结:
-        1. 某一类的方法可以直接访问该类的任何一个对象的私有域。  
+        1. 某一类的方法可以直接访问本身类的任何一个对象的私有域。  
         2. 某一类的方法可以间接访问（传入对象参数）其他类中定义为public属性的数据和方法。        
     3. 静态域：用static修饰，该类的所有对象共享这一数据域。  
     4. 静态方法：用static修饰  
@@ -102,6 +102,90 @@
             运行结果:
                 这是第一瓶酒
                 这是第二瓶啤酒
+        ```
+        3. 接口引用指向实现类的对象（和父类引用指向子类对象类似），实现多态,例：    
+        `List<?> list= new ArrayList<?>         //list只是ArrayList的接口不是它的父类 ，不是父类引用指向子类对象`  
+        `Map<?,?> map = new  HashMap<?,?>`  
+        注意：list只能使用ArrayList中已经实现了的List接口中的方法，ArrayList中那些自己的、没有在List接口定义的方法是不可以被访问到的 ,如list.add()其实是List接口的方法,但是调用ArrayList的方法如 clone()方法是调用不到的   
+    3. 抽象类与接口：
+        抽象类：抽象类是用来捕捉子类的通用特性的，用来创建继承层级中子类的模板。    
+        1. 不能被实例化
+        2. 继承抽象类的子类，如果不是抽象类，需要实现父类中所有的抽象方法（这样才能被实例化）；如果子类不实现父类中的所有抽象方法，那么子类也是抽象类，就需要子类的子类实现剩余的抽象方法，这样才能构造对象，才有意义。  
+        //自己编造的例子，有点繁杂冗余，试了试抽象类
+        ```
+        public class Test3{
+            public static void main(String[] args)
+            {
+                Vehicle v = new Car("宝马730系",new Engine(8),130);
+                System.out.println(v.getName()+" V"+v.getCylinder()+"式发动机");
+                v.alarming();
+            }
+        }
+        abstract class Vehicle
+        {
+            private String name;
+            private Engine engine;
+
+            public Vehicle(String name,Engine engine) {
+            this.name = name;
+            this.engine = engine;
+            }
+            public abstract void alarming();
+            public String getName() {return name;}
+            public int getCylinder()
+            {
+                return engine.getCylinderNumber();
+            }
+        }
+        class Engine
+        {
+            private int cylinderNumber;
+
+            public Engine(int cylinderNumber)
+            {
+                this.cylinderNumber = cylinderNumber;
+            }
+            public int getCylinderNumber()  {return cylinderNumber;}
+        }
+        class Car extends Vehicle
+        {
+            private double speed;
+            public Car(String name,Engine engine,double aSpeed)
+            {
+                super(name,engine);
+                speed = aSpeed;
+            }
+            public void alarming(){
+                if(speed >= 120.0)
+                System.out.println("超速，发出警报！");
+            }
+        }
+        ```  
+        输出结果：  
+        ```
+        宝马730系 V8式发动机
+        超速，发出警报！
+        ```  
+        接口：  
+        1. 实现接口是必须实现接口中的所有方法，但抽象类不需要实现所有的接口方法。  
+        ```
+        abstract class X implements Y{          //X类必须声明为abstract，因为没有完整实现接口Y
+            //implements part of method of Y
+        }
+        class XX extends X{
+            //implements the remaining method in Y
+        }
+        ```  
+        2. 接口中所有方法自动定义为public,接口引用指向实现类的对象实现多态(具体见上面多态第三条)。
+        3. 重写接口:（在旧接口中添加新方法）通过新接口继承旧接口的方式,为旧接口增加功能，那些依赖原接口的程序无需修改。  
+        ```
+        public interface DoIt{
+            fun1();
+            fun2();
+        }
+        public interface DoItPlus extends DoIt{
+            fun3();
+        }
         ```
     继承的几点注意：
     1. 方法调用：  例：调用x.f(args):  x为类C的一个对象  
