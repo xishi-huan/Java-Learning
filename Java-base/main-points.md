@@ -55,8 +55,18 @@ assert [boolean表达式]
 	如果为false，则程序抛出AssertionError,并终止执行。
 8. Scanner用法  
 Sanner sc = new Scanner(System.in);  
-(1)其hasNext、hasNextInt、hasNextDouble、hasNextLine等方法，在扫描输入中，如果没有了值，不会返回false，只会等待你输入新的值，然后继续执行，hasNextInt、hasNextDouble、hasNextFloat等方法如果扫描输入过程中遇到 非int或double或float类型的值，结束扫描，返回false，hasNext和hasNextLine会无法停止。   
++ 其hasNext、hasNextInt、hasNextDouble、hasNextLine等方法，在扫描输入中，如果没有了值，不会返回false，只会等待你输入新的值，然后继续执行，hasNextInt、hasNextDouble、hasNextFloat等方法如果扫描输入过程中遇到 非int或double或float类型的值，结束扫描，返回false，hasNext和hasNextLine会无法停止。   
 解决办法：hasNext("0"),遇到0返回true  
-while( ! hasNext("0") )	{ ...  }
-（2）next、nextLine方法返回值为String类型
-（3）next方法遇到空格停止读取，返回值。
+while( ! hasNext("0") )	{ ...  }  
++ next、nextLine方法返回值为String类型  
++ next方法遇到空格停止读取，返回值。
+9. 类成员默认初始化  
++ 基本数据类型int、double、boolean等，默认初始化为0、0.0、false等值
++ 引用数据类型：如String、一般对象、泛型变量，默认初始化为null
++ 数组： (1)若你不初始化容量，默认初始化为null  
+(2)初始化容量后，①对于int[]等基本类型数组，不赋值或部分赋值，剩余部分默认初始化0、false等值    
+②对于String[]一般数组对象、泛型数组等，不赋值或部分赋值，剩余部分默认初始化为null
+10. int和char  
+int c = 3 + 'a';  // c = 100  
+char c = 3 + 'a';  // c = 'd'
+
