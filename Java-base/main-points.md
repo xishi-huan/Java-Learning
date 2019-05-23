@@ -8,6 +8,7 @@
 栈：每调用一个方法，会创建一个栈帧，存放局部变量。
 3. String使用equals 和 == 区别  
 推荐>https://www.cnblogs.com/baotong-9396/p/7182906.html   
+推荐>https://blog.csdn.net/qq_33417486/article/details/82787598    
 String既可以作为一个对象来使用，又可以作为一个基本类型来使用。这里指的作为一个基本类型来使用只是指使用方法上的，比如String s = "Hello"，它的使用方法如同基本类型int一样，比如int i = 1;，而作为一个对象来使用，则是指通过new关键字来创建一个新对象，比如String s = new String("Hello")。
 ``` 
 //示例一

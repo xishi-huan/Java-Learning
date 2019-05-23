@@ -40,16 +40,31 @@
 5. this作用：  
     1. 表示隐式参数	向类中定义的方法传递的参数，代表本类的对象。   
     ```  
-        class Employee
-        {
-	        private String name;
-	        private double salary;
-                
-	        public Employee(String name,double salary)
-	        {
-		        this.name = name;
-		        this.salary = salary;
-	        }
+        /**
+        * 定义类时，尚未new出对象，this用来指代 “调用方法的那个对象” 的引用；
+        * 方法通过使用this关键字，返回调用本方法的引用；
+        */
+        public class TestPro{  
+            public static void main(String[] args){
+                new Person().eat(new Apple());
+            }
+        }/*output:
+            Remove skin
+            Eat peeled apple
+        */
+
+        class Person{
+            void eat(Apple apple){
+                Apple peeledApple = apple.peelOff();   
+                System.out.println("Eat peeled apple");
+            }
+        }
+        class Apple{
+            Apple peelOff(){
+                // ...remove peel
+                System.out.println("Remove skin");
+                return this;     //返回一个peeled apple
+            }
         }
     ```
     2. 在构造器中调用同一类的另一个构造器。
