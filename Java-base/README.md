@@ -5,4 +5,4 @@
 4. [泛型](https://github.com/xishi-huan/Java-Learning/blob/master/Java-base/泛型.md)
 5. [集合](https://github.com/xishi-huan/Java-Learning/blob/master/Java-base/collection.md)
 6. [I/O](https://github.com/xishi-huan/Java-Learning/blob/master/Java-base/IO.md)
-7. [要点](https://github.com/xishi-huan/Java-Learning/blob/master/Java-base/main-points.md)
+7. [补充要点](https://github.com/xishi-huan/Java-Learning/blob/master/Java-base/main-points.md)
