@@ -34,9 +34,11 @@
     1. 问题：什么时候使用静态方法？  
         * 不需要访问对象实例域（状态）  
         * 只需要访问类的静态域。  
-    2. 常见用途：个别类使用静态工厂方法来构造对象，生成不同风格的格式化对象。  
-        `NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();`
-        `NumberFormat percentFormatter = NumberFormat.getPercentInstance();`  
+    2. 常见用途：个别类使用静态工厂方法来构造对象，生成不同风格的格式化对象。 
+    ``` 
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
+        NumberFormat percentFormatter = NumberFormat.getPercentInstance(); 
+    ```
 5. this作用：  
     1. 表示隐式参数	向类中定义的方法传递的参数，代表本类的对象。   
     ```  
@@ -133,9 +135,11 @@
                 这是第二瓶啤酒
                 这是第三瓶酒
         ```
-        * 接口引用指向实现类的对象（和父类引用指向子类对象类似），实现多态,例：    
-        `List<?> list= new ArrayList<?>         //list只是ArrayList的接口不是它的父类 ，不是父类引用指向子类对象`  
-        `Map<?,?> map = new  HashMap<?,?>`  
+        * 接口引用指向实现类的对象（和父类引用指向子类对象类似），实现多态,例：
+        ```    
+        List<?> list= new ArrayList<?>         //list只是ArrayList的接口不是它的父类 ，不是父类引用指向子类对象  
+        Map<?,?> map = new  HashMap<?,?> 
+        ``` 
         注意：list只能使用ArrayList中已经实现了的List接口中的方法，ArrayList中那些自己的、没有在List接口定义的方法是不可以被访问到的 ,如list.add()其实是List接口的方法,但是调用ArrayList的方法如 clone()方法是调用不到的，例：    
         ```
         import java.awt.Point;
@@ -196,7 +200,7 @@
         * 不能被实例化
         * 继承抽象类的子类，如果不是抽象类，需要实现父类中所有的抽象方法（这样才能被实例化）；如果子类不实现父类中的所有抽象方法，那么子类也是抽象类，就需要子类的子类实现剩余的抽象方法，这样才能构造对象，才有意义。  
         ```
-            //自己编造的例子，有点繁杂冗余，试了试抽象类
+            //自己编造的例子，有点繁杂，测试一下抽象类
             public class Test3{
                 public static void main(String[] args)
                 {
