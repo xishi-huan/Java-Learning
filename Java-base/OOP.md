@@ -79,6 +79,33 @@
     ```
 
 ## 继承
+### A类继承B类，A类中隐式地拥有了B类的方法和私有域，A类对象可以调用这些方法。
+```
+class SuperClass extends SsuperClass{
+    private int age;
+
+    public SuperClass(int age, String name){
+        super(name);
+        this.age = age;
+    }
+    public void f2(){
+        System.out.println("Superclass");
+    }
+
+    public int getAge()     {   return age;}
+}
+class InitialClass extends SuperClass{
+    private double id;
+
+    public InitialClass(double id,String name,int age){
+        super(age,name);
+        this.id = id;
+    }
+    public void f3(){
+        System.out.println(getName() +" "+ getAge());
+    }
+}
+```
 1. super作用：
     * 调用超类的方法  super.方法  
     * 调用超类的构造器  super（参数1,2，...）
@@ -275,6 +302,36 @@
                 fun3();
             }
         ```
+        * 接口之间继承，A接口继承B接口，那么A拥有了B中的方法和本身的方法：
+        ```
+        interface a1{
+            void x();
+        }
+        interface a2 extends a1{
+            void y();
+        }
+        interface a3 extends a2{
+            void z();
+        }
+        class Interfac1 implements a2{
+            public void y() {
+                System.out.println("a2.y()");
+            }
+            public void x(){
+                System.out.println("a1.x()");
+            }
+        }
+        class Iterfac2 implements a3{
+            public void z(){
+                System.out.println("a3.z()");
+            }
+            public void y() {
+                System.out.println("a2.y()");
+            }
+            public void x(){
+                System.out.println("a1.x()");
+        }
+        ```
 4. 继承的几点注意：
     1. 方法调用：  例：调用x.f(args):  x为类C的一个对象  
         过程：  
@@ -290,4 +347,28 @@
             public Employee getBuddy()	{...}
             public Manager getBuddy()	{...}
         ```
-    3.  ......
+    3.  当超类是默认的构造器时，子类会自动调用它的默认构造器，当超类中没有了默认构造器，子类如果不显式地调用超类中定义的构造器，编译器会报错。
+    ```
+    class SsuperClass{
+        private String name;
+    
+        public SsuperClass(String name){
+            this.name = name;
+        }
+        public void f1(){
+            System.out.println("Ssuperclass");
+        }      
+
+        public String getName()     {   return name; }
+
+    }
+    class SuperClass extends SsuperClass{       //报错
+        private int age;
+
+        public void f2(){
+            System.out.println("Superclass");
+        }
+
+        public int getAge()     {   return age;}
+    }
+    ```
