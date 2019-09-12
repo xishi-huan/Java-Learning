@@ -70,4 +70,113 @@ while( ! hasNext("0") )	{ ...  }
 10. int和char  
 int c = 3 + 'a';  // c = 100  
 char c = 3 + 'a';  // c = 'd'
+11. String与int、double类型转换：  
++ Integer.parseInt(str);  
++ Double.parseDouble(str);
+12. finally块：  
+一般情况下无论try代码块是否抛出异常，finally块都会执行。
+13. Mysql锁：
++ 共享锁（读锁）：允许事务读一行数据
++ 互斥锁（写锁）：允许事务删除或更新一行数据  
+14. synchronized：  
++ 在并发编程中存在线程安全问题，主要原因有：1.存在共享数据 2.多线程共同操作共享数据。
++ 关键字synchronized可以保证在同一时刻，只有一个线程可以执行某个方法或某个代码块，同时synchronized可以保证一个线程的变化可见（可见性），即可以代替volatile。原理：synchronized可以保证方法或者代码块在运行时，同一时刻只有一个方法可以进入到临界区，同时它还可以保证共享变量的内存可见性
+15. finalize：  
+finalize方法是Object提供的的实例方法，使用规则如下：
++ 当对象不再被任何对象引用时，GC会调用该对象的finalize()方法
++ finalize()是Object的方法，子类可以覆盖这个方法来做一些系统资源的释放或者数据的清理
++ 可以在finalize()让这个对象再次被引用，避免被GC回收；但是最常用的目的还是做cleanup
++ Java不保证这个finalize()一定被执行；但是保证调用finalize的线程没有持有任何user-visible同步锁。
++ 在finalize里面抛出的异常会被忽略，同时方法终止。
++ 当finalize被调用之后，JVM会再一次检测这个对象是否能被存活的线程访问得到，如果不是，则清除该对象。也就是finalize只能被调用一次；也就是说，覆盖了finalize方法的对象需要经过两个GC周期才能被清除
+16. TCP握手的意义（目的）：
+三次握手的目的是同步连接双方的序列号和确认号并交换 TCP 窗口大小信息。
+17. volatile的特性：  
++ 保证了不同线程对这个变量进行操作时的可见性，即一个线程修改了某个变量的值，这新值对其他线程来说是立即可见的。（实现可见性）
++ 禁止进行指令重排序。（实现有序性）
++ volatile 只能保证对单次读/写的原子性。i++ 这种操作不能保证原子性。
+18. 类加载过程：JVM把class文件加载到内存，并对数据进行校验、准备、解析、初始化，最终形成JVM可以直接使用的Java类型的过程。  
+程序初始化顺序：  
++ 父类静态变量、父类静态块（按代码先后顺序）
++ 子类静态变量、子类静态块（顺序执行）
++ 父类变量、父类块（顺序执行）
++ 父类构造函数
++ 子类变量、子类块（顺序执行）
++ 子类构造函数
++ 另：类的静态方法、方法在调用时才会执行
+```
+public class TestDemo {
 
+    public static void main(String[] args) {
+        new Son().staF();
+    }
+}
+
+class Father{
+    private static int i = initI();                  //1
+
+
+    static{
+        System.out.println("父类静态块");            //2
+    }
+    public static void staF(){
+        System.out.println("父类静态方法");
+    }
+
+    public Father(){
+        System.out.println("父类构造函数");              //7
+    }
+    {
+        System.out.println("父类块");                  //5
+    }
+    private int j = initJ();                            //6
+    public void f(){
+        System.out.println("父类方法");
+    }
+
+
+
+    private static int initI(){
+        System.out.println("父类静态变量");
+        return 3;
+    }
+    private int initJ(){
+        System.out.println("父类变量");
+        return 4;
+    }
+}
+
+
+class Son extends Father{
+    private static int m = initM();                 //3
+    private int n = initN();                        //8
+
+    static{
+        System.out.println("子类静态块");            //4
+    }
+    public static void staF(){
+        System.out.println("子类静态方法");
+    }
+
+
+    {
+        System.out.println("子类块");                  //9
+    }
+    public void f(){
+        System.out.println("子类方法");
+    }
+    public Son(){
+        System.out.println("子类构造函数");              //10
+    }
+
+
+    private static int initM(){
+        System.out.println("子类静态变量");
+        return 3;
+    }
+    private int initN(){
+        System.out.println("子类变量");
+        return 4;
+    }
+}
+```
